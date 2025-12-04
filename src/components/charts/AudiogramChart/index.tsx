@@ -40,7 +40,7 @@ const CustomizedDot = (props: DotItemDotProps
                  width="1em" xmlns="http://www.w3.org/2000/svg">
                 <path strokeWidth="32" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
             </svg>
-    );
+        );
     }
 
     return (
@@ -70,8 +70,8 @@ const xTicks = ["250", "500", "1k", "2k", "3k", "4k", "6k", "8k"];
 
 export default function AudiogramChart() {
     return (
-        <div className="w-full max-w-xl mx-auto">
-            <h2 className="text-center mb-2 font-semibold">Right Ear</h2>
+        <div className="w-full max-w-xl mx-auto !text-[#5F666E] !text-[12px]" dir='ltr'>
+            <h2 className="text-center  font-semibold">Right Ear</h2>
             <div className="relative">
 
                 {ranges.map((r, i) => {
@@ -87,7 +87,7 @@ export default function AudiogramChart() {
                     return (
                         <div
                             key={i}
-                            className="absolute -right-9 translate-y-[-50%] text-sm font-semibold pointer-events-none pr-1"
+                            className="absolute -right-6 translate-y-[-50%]  font-semibold pointer-events-none pr-1"
                             style={{top: y}}
                         >
                             {r.label}
@@ -97,10 +97,10 @@ export default function AudiogramChart() {
 
                 <ResponsiveContainer width="100%" height={520}>
                     <LineChart data={data}
-                               // margin={{top: 20, right: 50, bottom: 0, left: 40}}
-                               margin={{ top: 20, right: 50, bottom: 20, left: 60 }}
+                        // margin={{top: 20, right: 50, bottom: 0, left: 40}}
+                               margin={{top: 20, right: 50, bottom: 20, left: 60}}
                     >
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid strokeDasharray="3 3"/>
 
                         <XAxis
                             dataKey="freq"
@@ -109,9 +109,9 @@ export default function AudiogramChart() {
                             domain={[-10, 135]}
                             // ticks={["250", "500", "1k", "2k", "3k", "4k", "6k", "8k"]}
                             interval={0}
-                            padding={{ left: 40, right: 30 }}
+                            padding={{left: 40, right: 30}}
                             tickFormatter={(v) => {
-                                if (v >= 1000) return (v/1000) + "k";
+                                if (v >= 1000) return (v / 1000) + "k";
                                 return v;
                             }}
                         />
@@ -121,21 +121,27 @@ export default function AudiogramChart() {
                             // domain={[0, 120]}
                             domain={[-5, 130]}
                             // ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]}
-                            ticks={[0,10, 20,30, 40, 50,60, 70,80,90, 100, 110, 120]}
+                            ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]}
                             interval={0}
                             // tickCount={28}
                             reversed
                             label={{value: "Hearing Level (dB)", angle: -90, position: "insideLeft"}}
-                            padding={{ top: 10, bottom: 0 }}
+                            padding={{top: 10, bottom: 0}}
 
                         />
                         <Tooltip/>
-                        <ReferenceArea y1={0} y2={20} fill="#d4edda" fillOpacity={0.4} ifOverflow="extendDomain"/> // Normal
-                        <ReferenceArea y1={20} y2={40} fill="#fff3cd" fillOpacity={0.4} ifOverflow="extendDomain"/> // Mid
-                        <ReferenceArea y1={40} y2={50} fill="#ffe5b4" fillOpacity={0.4} ifOverflow="extendDomain"/> // Moderate
-                        <ReferenceArea y1={50} y2={70} fill="#f8d7da" fillOpacity={0.4} ifOverflow="extendDomain"/> // Severe
-                        <ReferenceArea y1={70} y2={90} fill="#f5c6cb" fillOpacity={0.4} ifOverflow="extendDomain"/> // Profound
-                        <ReferenceArea y1={90} y2={130} fill="#f8bbbb" fillOpacity={0.4}  ifOverflow="extendDomain"/> // Danger
+                        <ReferenceArea y1={0} y2={20} fill="#d4edda" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Normal
+                        <ReferenceArea y1={20} y2={40} fill="#fff3cd" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Mid
+                        <ReferenceArea y1={40} y2={50} fill="#ffe5b4" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Moderate
+                        <ReferenceArea y1={50} y2={70} fill="#f8d7da" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Severe
+                        <ReferenceArea y1={70} y2={90} fill="#f5c6cb" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Profound
+                        <ReferenceArea y1={90} y2={130} fill="#f8bbbb" fillOpacity={0.4} ifOverflow="extendDomain"/> //
+                        Danger
 
 
                         <Line

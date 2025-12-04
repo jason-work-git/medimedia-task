@@ -1,14 +1,362 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    /* Breakpoints (use rem per v4 docs) */
+    --breakpoint-xs: 24.375rem;     /* 390px */
+    --breakpoint-sm: 40rem;         /* 640px */
+    --breakpoint-md: 48.125rem;     /* 770px */
+    --breakpoint-lg: 64rem;         /* 1024px */
+    --breakpoint-xl: 80rem;         /* 1280px */
+    --breakpoint-2xl: 96rem;        /* 1536px */
+    /* Fonts */
+    --font-iranYekanX: var(--font-iranYekanX), ui-sans-serif, system-ui, sans-serif;
+
+    /* Font weights (adds utilities like `font-regular`, `font-ultraLight`) */
+    --font-weight-black: 900;
+    --font-weight-bold: 700;
+    --font-weight-medium: 500;
+    --font-weight-regular: 400;
+    --font-weight-light: 300;
+    --font-weight-ultraLight: 200;
+
+    /* Font sizes (keeps your names, e.g. `text-14px`) */
+    --text-30px: 30px;
+    --text-24px: 24px;
+    --text-20px: 20px;
+    --text-18px: 18px;
+    --text-16px: 16px;
+    --text-14px: 14px;
+    --text-12px: 12px;
+    --text-10px: 10px;
+
+    /* Radii (plus your CSS-variable-driven sizes) */
+    --radius-4: 4px;
+    --radius-8: 8px;
+    --radius-12: 12px;
+    --radius-14: 14px;
+    --radius-16: 16px;
+    --radius-18: 18px;
+    --radius-20: 20px;
+    --radius-22: 22px;
+    --radius-24: 24px;
+    --radius-26: 26px;
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    /* Shadows */
+    --shadow-custom-light: 0px 4px 12.3px rgba(73, 73, 73, 0.19);
+
+    /* Colors — these create utilities like bg-background, text-primary, etc. */
+    --color-background: #ffffff;
+    --color-foreground: #0a0a0a;
+
+    --color-card: #ffffff;
+    --color-card-foreground: #0a0a0a;
+
+    --color-popover: #ffffff;
+    --color-popover-foreground: #0a0a0a;
+
+    --color-primary: #789926;
+    --color-primary-dark: #4c914f;
+    --color-primary-foreground: #ffe7e7;
+
+    --color-secondary: #121212;
+    --color-secondary-dark: #101010;
+    --color-secondary-foreground: #1a1a1a;
+
+    --color-tertiary: #f7b606;
+    --color-tertiary-dark: #e1a605;
+
+    --color-muted: #f4f4f4;
+    --color-muted-foreground: #797979;
+
+    --color-orange: #b33d00;
+
+    --color-accent: #f4f4f4;
+    --color-accent-foreground: #1a1a1a;
+
+    --color-destructive: #d93838;
+    --color-destructive-foreground: #fafafa;
+
+    --color-border: #e5e5e5;
+    --color-input: #e5e5e5;
+    --color-ring: #0a0a0a;
+
+    --color-chart-1: #d64539;
+    --color-chart-2: #53a16c;
+    --color-chart-3: #2f5f58;
+    --color-chart-4: #b6ea95;
+    --color-chart-5: #efc86b;
+
+    /* Palettes */
+    /* Green */
+    --color-green-50: #eef5ee;
+    --color-green-100: #cae1cb;
+    --color-green-200: #b0d3b2;
+    --color-green-300: #8cbf8e;
+    --color-green-400: #75b279;
+    --color-green-500: #539f57;
+    --color-green-600: #4c914f;
+    --color-green-700: #3b713e;
+    --color-green-800: #2e5730;
+    --color-green-900: #234325;
+
+    /* Black */
+    --color-black-50: #e7e7e7;
+    --color-black-100: #b6b6b6;
+    --color-black-200: #929292;
+    --color-black-300: #606060;
+    --color-black-400: #414141;
+    --color-black-500: #121212;
+    --color-black-600: #101010;
+    --color-black-700: #0d0d0d;
+    --color-black-800: #0a0a0a;
+    --color-black-900: #080808;
+    --color-black: #000000;
+
+    /* Yellow */
+    --color-yellow-50: #fef8e6;
+    --color-yellow-100: #fde8b2;
+    --color-yellow-200: #fbdd8c;
+    --color-yellow-300: #facd58;
+    --color-yellow-400: #f9c538;
+    --color-yellow-500: #f7b606;
+    --color-yellow-600: #e1a605;
+    --color-yellow-700: #af8104;
+    --color-yellow-800: #886403;
+    --color-yellow-900: #684c03;
+
+    /* Grey */
+    --color-grey-50: #fafafa;
+    --color-grey-100: #f5f5f5;
+    --color-grey-200: #eeeeee;
+    --color-grey-300: #e0e0e0;
+    --color-grey-400: #bdbdbd;
+    --color-grey-500: #9e9e9e;
+    --color-grey-600: #757575;
+    --color-grey-700: #616161;
+    --color-grey-800: #424242;
+    --color-grey-900: #212121;
+
+    --color-white: #ffffff;
+    --color-beige: #e4d7c5;
+    --color-cream: #f9e4c0;
+
+    /* Custom animations (define keyframes inside @theme for v4) */
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+    --animate-orbit: spinOrbit linear infinite;
+    --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+    --animate-shimmer: shimmer 1.5s infinite;
+
+    @keyframes accordion-down {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--radix-accordion-content-height);
+        }
+    }
+    @keyframes accordion-up {
+        from {
+            height: var(--radix-accordion-content-height);
+        }
+        to {
+            height: 0;
+        }
+    }
+    @keyframes spinOrbit {
+        0% {
+            transform: translate(-50%, -50%);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(-360deg);
+        }
+    }
+    @keyframes caret-blink {
+        0%, 70%, 100% {
+            opacity: 1;
+        }
+        20%, 50% {
+            opacity: 0;
+        }
+    }
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    /* Background images used by shimmer */
+    --bg-shimmer-bg: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+@utility container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-inline: 1rem;
+
+    @variant sm {
+    }
+
+    @variant md {
+    }
+}
+
+/* -----------------------------
+   Your existing CSS variables
+   (keep for runtime theming)
+   ----------------------------- */
+@layer base {
+    :root {
+        --background: #ffffff;
+        --foreground: #0a0a0a;
+        --card: #ffffff;
+        --card-foreground: #0a0a0a;
+        --popover: #ffffff;
+        --popover-foreground: #0a0a0a;
+
+        --primary: #539f57;
+        --primary-dark: #4c914f;
+        --primary-foreground: #ffe7e7;
+        --secondary: #121212;
+        --secondary-dark: #101010;
+        --secondary-foreground: #1a1a1a;
+        --tertiary: #f7b606;
+        --tertiary-dark: #e1a605;
+
+        --muted: #f4f4f4;
+        --muted-foreground: #797979;
+        --orange: #b33d00;
+        --accent: #f4f4f4;
+        --accent-foreground: #1a1a1a;
+        --destructive: #d93838;
+        --destructive-foreground: #fafafa;
+        --border: #e5e5e5;
+        --input: #e5e5e5;
+        --ring: #0a0a0a;
+
+        --chart-1: #d64539;
+        --chart-2: #53a16c;
+        --chart-3: #2f5f58;
+        --chart-4: #b6ea95;
+        --chart-5: #efc86b;
+
+        --radius: 8px;
+
+        --gray-2: #f2f2f2;
+        --gray-4: #e0e0e0;
+        --gray-7: #4f4f4f;
+        --gray-9: #333333;
+
+        /* Green Palette */
+        --green-50: #eef5ee;
+        --green-100: #cae1cb;
+        --green-200: #b0d3b2;
+        --green-300: #8cbf8e;
+        --green-400: #75b279;
+        --green-500: #539f57;
+        --green-600: #4c914f;
+        --green-700: #3b713e;
+        --green-800: #2e5730;
+        --green-900: #234325;
+
+        /* Black Palette */
+        --black-50: #e7e7e7;
+        --black-100: #b6b6b6;
+        --black-200: #929292;
+        --black-300: #606060;
+        --black-400: #414141;
+        --black-500: #121212;
+        --black-600: #101010;
+        --black-700: #0d0d0d;
+        --black-800: #0a0a0a;
+        --black-900: #080808;
+
+        /* Yellow Palette */
+        --yellow-50: #fef8e6;
+        --yellow-100: #fde8b2;
+        --yellow-200: #fbdd8c;
+        --yellow-300: #facd58;
+        --yellow-400: #f9c538;
+        --yellow-500: #f7b606;
+        --yellow-600: #e1a605;
+        --yellow-700: #af8104;
+        --yellow-800: #886403;
+        --yellow-900: #684c03;
+
+        /* Grey Palette */
+        --Grey-50: #fafafa;
+        --Grey-100: #f5f5f5;
+        --Grey-200: #eeeeee;
+        --Grey-300: #e0e0e0;
+        --Grey-400: #bdbdbd;
+        --Grey-500: #9e9e9e;
+        --Grey-600: #757575;
+        --Grey-700: #616161;
+        --Grey-800: #424242;
+        --Grey-900: #212121;
+
+        /* Additional Colors */
+        --white: #ffffff;
+        --Beige: #e4d7c5;
+        --Cream: #f9e4c0;
+    }
+
+    .dark {
+        --background: #0a0a0a;
+        --foreground: #fafafa;
+        --card: #0a0a0a;
+        --card-foreground: #fafafa;
+        --popover: #0a0a0a;
+        --popover-foreground: #fafafa;
+        --primary: #fafafa;
+        --primary-foreground: #1a1a1a;
+        --secondary: #272727;
+        --secondary-foreground: #fafafa;
+        --muted: #272727;
+        --muted-foreground: #a4a4a4;
+        --accent: #272727;
+        --accent-foreground: #fafafa;
+        --destructive: #9f4d4d;
+        --destructive-foreground: #fafafa;
+        --border: var(--Grey-400);
+        --input: #272727;
+        --ring: #d6d6d6;
+        --chart-1: #3669e3;
+        --chart-2: #46b593;
+        --chart-3: #b98947;
+        --chart-4: #965da6;
+        --chart-5: #df5c90;
+    }
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        direction: rtl !important;
+    }
+  * {
+    @apply border-border outline-ring/50 ;
+  }
+  body {
+    @apply bg-background text-foreground ;
+  }
 }
 
